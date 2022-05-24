@@ -9,13 +9,22 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pyarrow.parquet as pq
 
-pq_trips = pq.read_table("yellow_tripdata_2022-03.parquet")
+#%% Importing data
+
+
+pq_trips = pq.read_table("data/yellow_tripdata_2022-03.parquet")
 df_trips = pq_trips.to_pandas()
 
 # Exploring the data
 print(df_trips.head())
 print("Headers are: \n",df_trips.columns)
 
-#sorting by time of day
+
+#%%  sorting by time of day
+
+
+
+#%% 
+
 
 
