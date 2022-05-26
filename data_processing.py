@@ -33,14 +33,11 @@ df_trips.drop(columns=['VendorID', 'store_and_fwd_flag',
                        'payment_type','extra',
                        'mta_tax', 'tolls_amount', 'improvement_surcharge',
                        'congestion_surcharge', 'airport_fee'], inplace=True)
-print(df_trips.shape[0])
 
 # Removing empty rows pandas.DataFrame.dropna
 df_trips.dropna(axis=0, how='any', inplace=True)
-print(df_trips.shape[0])
 
 #pickup and drop-off date within month
-
 
 #location zone ID should be in range [1,263]
 df_trips = df_trips[(df_trips['PULocationID'] >= 1) &
@@ -54,7 +51,7 @@ df_trips = df_trips[(df_trips['passenger_count'] >= 1) |
 
 #trip distance not equal to 0 and higher that 100 miles
 df_trips = df_trips[(df_trips['trip_distance'] >=0) |
-                    (df_trips['passenger_count'] <= 100)]
+                    (df_trips['trip_distance'] <= 100)]
 print(df_trips.shape[0])
 
 #fare amount should be at least $2,50
