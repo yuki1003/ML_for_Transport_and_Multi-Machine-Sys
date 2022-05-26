@@ -34,30 +34,29 @@ df_trips.drop(columns=['VendorID', 'store_and_fwd_flag',
                        'mta_tax', 'tolls_amount', 'improvement_surcharge',
                        'congestion_surcharge', 'airport_fee'], inplace=True)
 print(df_trips.shape[0])
+
 # Removing empty rows pandas.DataFrame.dropna
 df_trips.dropna(axis=0, how='any', inplace=True)
+print(df_trips.shape[0])
 
 #pickup and drop-off date within month
 
 
 #location zone ID should be in range [1,263]
-index_rm_zone_ID = df_trips[(df_trips['PULocationID'] > 263) or
-                            (df_trips['PULocationID'] < 1) or
-                            (df_trips['DOLocationID'] > 263) or
-                            (df_trips['PULocationID'] < 1)].index
-df_trips.drop(index_rm_zone_ID, inplace = True)
+df_trips = df_trips[(df_trips['PULocationID'] >= 1) &
+                    (df_trips['PULocationID'] <= 263) & 
+                    (df_trips['DOLocationID'] >= 1) &
+                    (df_trips['DOLocationID'] <= 263)]
 
 #passenger count should be range [1,6]
-index_rm_passenger = df_trips[(df_trips['passenger_count'] > 6) or
-                              (df_trips['passenger_count'] < 1)].index
-df_trips.drop(index_rm_passenger, inplace = True)
+df_trips = df_trips[(df_trips['passenger_count'] >= 1) |
+                    (df_trips['passenger_count'] <= 6)]
 
 #trip distance not equal to 0 and higher that 100 miles
-index_rm_trip_dist = df_trips[(df_trips['trip_distance'] <=0 ) or
-                              (df_trips['passenger_count'] > 100)].index
-
-df_trips.drop(index_rm_trip_dist, inplace = True)
+df_trips = df_trips[(df_trips['trip_distance'] >=0) |
+                    (df_trips['passenger_count'] <= 100)]
 print(df_trips.shape[0])
+
 #fare amount should be at least $2,50
 
 ##tip percentage maximum? 50%?
