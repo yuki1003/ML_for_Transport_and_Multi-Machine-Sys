@@ -4,7 +4,6 @@ Group:
 Description: This file will only be used for data processing
 """
 
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -12,12 +11,10 @@ import datetime as datetime
 import pyarrow.parquet as pq
 import seaborn as sb
 
-
 #%% Importing data
 
 pq_trips = pq.read_table("data/yellow_tripdata_2022-03.parquet")
 df_trips = pq_trips.to_pandas()
-
 df_borough = pd.read_csv('data/taxi+_zone_lookup.csv')
 
 
@@ -26,8 +23,6 @@ df_borough = pd.read_csv('data/taxi+_zone_lookup.csv')
 # Remove unused columns (MTA tax, improvement_surcharge, VendorID, Store_and_fwd_flag, payment_type, Congestion_Surcharge)
 df_trips.drop(columns=['VendorID', 'store_and_fwd_flag', 'payment_type', 'extra', 'mta_tax', 'tolls_amount', 
                        'improvement_surcharge', 'congestion_surcharge', 'airport_fee'], inplace=True)
-
-#CHECK IF pickup and drop-off date are within month
 
 #only include RatecodeID 1 and 2, standard rate and JFK (get rid of discounted trips, etc)
 df_trips = df_trips[(df_trips['RatecodeID'] == 1) | (df_trips['RatecodeID'] == 2)]
@@ -63,7 +58,7 @@ df_trips['tpep_dropoff_datetime']=pd.to_datetime(df_trips['tpep_dropoff_datetime
 df_trips['pickup_date'] = df_trips['tpep_pickup_datetime'].dt.date.tolist()
 df_trips['dropoff_date'] = df_trips['tpep_dropoff_datetime'].dt.date.tolist()
 
-#check dates are all within the month march 03
+#CHECK dates are all within the month march 03
 #df_trips = df_trips[(df_trips['pickup_date'])[7] == 3]
 
 #adding columns with only pick up and drop off time, no date
@@ -96,7 +91,6 @@ df_zeros = df_trips.isnull().sum()  #MISTAKE: somehow returns that there is no z
 '''
 for column_name in df_trips.columns:
     column = df_trips[column_name]
-    # Get the count of Zeros in column 
     count = (column == 0).sum()
     print('Count of zeros in', column_name, 'is :', count)
 '''
