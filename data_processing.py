@@ -12,10 +12,8 @@ import pyarrow.parquet as pq
 
 #%% Importing data
 
-
 pq_trips = pq.read_table("data/yellow_tripdata_2022-03.parquet")
 df_trips = pq_trips.to_pandas()
-
 
 df_trips_head= df_trips.head()
 
@@ -23,10 +21,7 @@ df_trips_head= df_trips.head()
 print(df_trips.head())
 print("Headers are: \n",df_trips.columns)
 
-
 #%% removing unused columns
-#vendorID, surcharge, tolls amount, 
-
 
 # Remove columns (MTA tax, improvement_surcharge, VendorID, Store_and_fwd_flag, payment_type, Congestion_Surcharge)
 df_trips.drop(columns=['VendorID', 'store_and_fwd_flag',
@@ -35,7 +30,7 @@ df_trips.drop(columns=['VendorID', 'store_and_fwd_flag',
                        'congestion_surcharge', 'airport_fee'], inplace=True)
 
 # Removing empty rows pandas.DataFrame.dropna
-df_trips.dropna(axis=0, how='any', inplace=True)
+#df_trips.dropna(axis=0, how='any', inplace=True)
 
 #pickup and drop-off date within month
 
@@ -54,25 +49,26 @@ df_trips = df_trips[(df_trips['trip_distance'] >=0) |
                     (df_trips['trip_distance'] <= 100)]
 print(df_trips.shape[0])
 
-#fare amount should be at least $2,50
 
-##tip percentage maximum? 50%?
 
-#trip duration minimum 1 minute? max 3 hours?
+#fare amount should be at least $2,50 [TOM]
 
-# Convert all strings to floats
+#tip percentage maximum? 50%? [TOM]
 
-# Convert time schemes
+# Convert all strings to floats [TOM]
 
-# add column for trip duration: Requires calculation
+# identify pick-up and dropoff borough (use taxizonelookup.excel sheet) [TOM]
 
-# Groupby time of day (rush hour), weekday vs. weekend vs. holiday
+# tip percentage [TOM]
 
-# identify pick-up and dropoff borough (use taxizonelookup.excel sheet)
+#trip duration minimum 1 minute? max 3 hours? [DAPHNE]
 
-# tip percentage
+# Convert time schemes [DAPHNE]
 
-#%% convert date time
+# add column for trip duration: Requires calculation [DAPHNE]
+
+# Groupby time of day (rush hour), weekday vs. weekend vs. holiday [DAPHNE]
+
 
 
 
