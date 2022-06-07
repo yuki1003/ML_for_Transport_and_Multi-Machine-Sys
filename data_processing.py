@@ -37,8 +37,8 @@ df_trips = df_trips[(df_trips['passenger_count'] >= 1) & (df_trips['passenger_co
 #trip distance not equal to 0 and higher that 100 miles
 df_trips = df_trips[(df_trips['trip_distance'] > 0) & (df_trips['trip_distance'] <= 100)]
 
-#fare amount should be at least $2,00
-df_trips = df_trips[(df_trips['fare_amount'] >= 2.00) & (df_trips['fare_amount'] <= 300.00)]
+#fare amount should be at least $2,50
+df_trips = df_trips[(df_trips['fare_amount'] >= 2.50) & (df_trips['fare_amount'] <= 300.00)]
 
 #tip amount should be greater than or equal to 0 , see tip percentage to include a maximum
 df_trips = df_trips[(df_trips['tip_amount'] >= 0)]
@@ -103,6 +103,6 @@ print("Columns are: \n",df_trips.columns)
 
 #%% Load new dataframe as new csv/parquet file to be used in data analysis and ML methods
 outputFileName = 'yellow_tripdata_processed'
-#df_trips.to_parquet("data/{}.parquet".format(outputFileName)) #UNCOMMENT this to load file
+df_trips.to_parquet("data/{}.parquet".format(outputFileName)) #UNCOMMENT this to load file
 ##df_trips.to_csv("data/{}.csv".format(outputFileName))
 
