@@ -13,7 +13,7 @@ import seaborn as sb
 
 #%% Importing data 
 
-#from data_processing import df_trips
+from data_processing import df_trips
 
 #pq_taxi = pq.read_table("data/yellow_tripdata_processed.parquet")
 #df_taxi = pq_taxi.to_pandas()

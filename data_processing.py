@@ -73,6 +73,16 @@ df_trips['trip_duration_minutes'] = (df_trips['tpep_dropoff_datetime']-df_trips[
 df_trips = df_trips[(df_trips['trip_duration_seconds'] >= 60) &
                     (df_trips['trip_duration_seconds'] <= 7200)] 
 
+#split weekdays and weekend days for anaylsis
+def day_week(x):
+    if x in range(0,4):
+        return 'Weekday'
+    else:
+        return 'Weekend'
+
+df_trips['pickup_day_no'] = df_trips['tpep_dropoff_datetime'].dt.weekday
+df_trips['day_of_week'] = (df_trips['tpep_pickup_datetime'].dt.weekday).apply(day_week)
+
 
 #%% Add pick-up and dropoff borough name using taxizonelookup.excel sheet)
 def zone_conversion(id):
@@ -84,11 +94,16 @@ df_trips['dropoff_zone'] = df_trips['DOLocationID'].apply(zone_conversion)
 
 
 #%% Exploring and checking the data
-df_head = df_trips.head(n=20)
+df_head = df_trips.head(n=1000)
 df_describe = df_trips.describe()
 df_type = df_trips.dtypes
-df_zeros = df_trips.isnull().sum()  #MISTAKE: somehow returns that there is no zero tip amount, final excel shows this is present??
+df_zeros = df_trips.isnull().sum()  
 '''
+for column_name in df_trips.columns:
+    column = df_trips[column_name]
+    count = (column == 0).sum()
+    print('Count of zeros in', column_name, 'is :', count)
+
 for column_name in df_trips.columns:
     column = df_trips[column_name]
     count = (column == 0).sum()
@@ -103,6 +118,6 @@ print("Columns are: \n",df_trips.columns)
 
 #%% Load new dataframe as new csv/parquet file to be used in data analysis and ML methods
 outputFileName = 'yellow_tripdata_processed'
-df_trips.to_parquet("data/{}.parquet".format(outputFileName)) #UNCOMMENT this to load file
-##df_trips.to_csv("data/{}.csv".format(outputFileName))
+#df_trips.to_parquet("data/{}.parquet".format(outputFileName)) #UNCOMMENT this to load file
+#df_trips.to_csv("data/{}.csv".format(outputFileName))
 
