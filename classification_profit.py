@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Tue Jun 14 10:58:05 2022
+
+@author: 31682
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Mon Jun 13 15:51:00 2022
 
 @author: Yuki1
@@ -24,13 +31,14 @@ X = df_taxi['passenger_count',
             'pickup_time',
             'day_of_week']
 
-y = ...
+
+y = df_taxi['total_amount'] - df_taxi['trip_distance']*0.145 - df_taxi['trip_duration in minutes']*0.25
+#0.25 salary per mins
 
 # Split All Data to train data & test data
-# X_train,X_test,y_train,y_test=train_test_split(X,
-                                               # df_taxi['has_tipped'],
-                                               # test_size=0.25,
-                                               # random_state=0)
+X_train,X_test,y_train,y_test=train_test_split(X, y,
+                                               test_size=0.25,
+                                               random_state=0)
 
-# clf = LogisticRegression().fit(X_train, y_train)
+clf = LogisticRegression().fit(X_train, y_train)
 # clf.predict()
