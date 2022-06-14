@@ -24,15 +24,15 @@ from copy import deepcopy
 pq_taxi = pq.read_table("data/yellow_tripdata_processed.parquet")
 df_taxi = pq_taxi.to_pandas()
 
-X = df_taxi['passenger_count',
+X = df_taxi[['passenger_count',
             'trip_distance',
             'PULocationID',
             'DOLocationID',
             'pickup_time',
-            'day_of_week']
+            'day_of_week']]
 
 
-y = df_taxi['total_amount'] - df_taxi['trip_distance']*0.145 - df_taxi['trip_duration in minutes']*0.25
+y = df_taxi['total_amount'] - df_taxi['trip_distance']*0.145 - df_taxi['trip_duration_minutes']*0.25
 #0.25 salary per mins
 
 # Split All Data to train data & test data
