@@ -118,6 +118,6 @@ print("Columns are: \n",df_trips.columns)
 
 #%% Load new dataframe as new csv/parquet file to be used in data analysis and ML methods
 outputFileName = 'yellow_tripdata_processed'
-#df_trips.to_parquet("data/{}.parquet".format(outputFileName)) #UNCOMMENT this to load file
+df_trips.to_parquet("data/{}.parquet".format(outputFileName)) #UNCOMMENT this to load file
 #df_trips.to_csv("data/{}.csv".format(outputFileName))
 
