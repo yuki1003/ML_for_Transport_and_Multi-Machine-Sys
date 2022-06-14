@@ -16,6 +16,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pyarrow.parquet as pq
 import seaborn as sb
+from sklearn import preprocessing
+from sklearn import utils
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from copy import deepcopy
@@ -34,9 +36,13 @@ X = df_taxi[['passenger_count',
 
 y = df_taxi['total_amount'] - df_taxi['trip_distance']*0.145 - df_taxi['trip_duration_minutes']*0.25
 #0.25 salary per mins
+lab = preprocessing.LabelEncoder()
+y_transformed = lab.fit_transform(y)
+
 
 # Split All Data to train data & test data
 X_train,X_test,y_train,y_test=train_test_split(X, y,
+X_train,X_test,y_train,y_test=train_test_split(X, y_transformed,
                                                test_size=0.25,
                                                random_state=0)
 
