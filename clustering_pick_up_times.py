@@ -24,17 +24,17 @@ def get_sec(time_str):
     h, m, s = time_str.split(':')
     return int(h) * 3600 + int(m) * 60 + int(s)
 
-pickup_hour_min_sec = [date.strftime('%H:%M:%S') for date in df_taxi['tpep_pickup_datetime']]
-pickup_seconds = [[get_sec(time_str)] for time_str in pickup_hour_min_sec]
+pickup_hour_min_sec = [date.strftime('%H:%M:%S') for date in df_taxi['tpep_pickup_datetime']]   # convert date_format to ndarray object
+pickup_seconds = [[get_sec(time_str)] for time_str in pickup_hour_min_sec]                      # convert string to seconds
 
 # performing K-means clustering
-kmeans_clusters = KMeans(n_clusters=20, random_state=5)
-kmeans_clusters.fit(pickup_seconds)
-pickup_seconds_clusters_df = pd.DataFrame(pickup_seconds, columns=["pickup_seconds"])
-pickup_seconds_clusters_df['cluster'] = kmeans_clusters.labels_
+kmeans_clusters = KMeans(n_clusters=20, random_state=5)     # Create clustering model with 20 clusters
+kmeans_clusters.fit(pickup_seconds)                         # Fit time
+pickup_seconds_clusters_df = pd.DataFrame(pickup_seconds, columns=["pickup_seconds"])   # pickup_seconds converted to dataframe
+pickup_seconds_clusters_df['cluster'] = kmeans_clusters.labels_                         # create column 'cluster'with index of each cluster it is packed to
 
 # getting top 3 clusters of time periods of the day with most pick-ups
-top3seconds_clusters = pickup_seconds_clusters_df['cluster'].value_counts().index[0:3]
+top3seconds_clusters = pickup_seconds_clusters_df['cluster'].value_counts().index[0:3]  # get frequency -> get top 3
 
 # printing the top 3 time periods of the day with most pick-ups
 labels = ['1st', '2nd', '3rd']
