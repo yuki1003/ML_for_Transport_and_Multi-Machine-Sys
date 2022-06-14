@@ -24,12 +24,7 @@ X = df_taxi['passenger_count',
             'pickup_time',
             'day_of_week']
 
-
-# X = deepcopy(df_taxi)
-# X.drop(['tpep_pickup_datetime','tpep_dropoff_datetime'],axis=1,inplace=True)
-
-# Create new column based on if passenger has tipped or not
-# df_taxi['has_tipped'] = np.where(df_taxi['tip_amount']>0, 1, 0)
+y = ...
 
 # Split All Data to train data & test data
 # X_train,X_test,y_train,y_test=train_test_split(X,
