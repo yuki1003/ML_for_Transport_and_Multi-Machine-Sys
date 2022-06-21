@@ -1,3 +1,4 @@
 
 data/yellow_tripdata_processed.parquet
 __pycache__/clustering_pick_up_times.cpython-39.pyc
+.ipynb_checkpoints/Regression and Classification-checkpoint.ipynb
